@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Firebase and Google Sheets</title>
+		<style>
+			.input-group {
+				margin: 1rem 0 2rem;
+			}
+
+			span {
+				display: block;
+				font-size: 0.75rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<form id="form">
+			<div class="input-group">
+				<label for="email">
+					<span>Email:</span>
+					<input type="email" id="email" placeholder="you@domain.com" required />
+				</label>
+			</div>
+			<button type="submit">Save</button>
+		</form>
+
+		<script type="module">
+			const form = document.querySelector('form');
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const email = document.getElementById('email').value;
+
+				const request = await fetch('/api/save-email', {
+					method: 'POST',
+					body: JSON.stringify({ email }),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+				const result = await request.json();
+			});
+		</script>
+	</body>
+</html>
